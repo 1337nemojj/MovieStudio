@@ -2,6 +2,10 @@
 GET http://localhost:4004/odata/v4/catalog/Movies
 Accept: application/json
 
+### Movietag
+GET http://localhost:4004/odata/v4/catalog/Movies(ID='M001')?$select=tags
+Accept: application/json
+
 ### all Studios
 GET http://localhost:4004/odata/v4/catalog/Studios
 Accept: application/json
