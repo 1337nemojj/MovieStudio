@@ -1,0 +1,76 @@
+### all Movies
+GET http://localhost:4004/odata/v4/catalog/Movies
+Accept: application/json
+
+### all Studios
+GET http://localhost:4004/odata/v4/catalog/Studios
+Accept: application/json
+
+### all Actors
+GET http://localhost:4004/odata/v4/catalog/Actors
+Accept: application/json
+
+### all Categories
+GET http://localhost:4004/odata/v4/catalog/Categories
+Accept: application/json
+
+### all Sessions
+GET http://localhost:4004/odata/v4/catalog/Sessions
+Accept: application/json
+
+### MovieOverview
+GET http://localhost:4004/odata/v4/catalog/MoviesOverview
+Accept: application/json
+
+### RecentMovies
+GET http://localhost:4004/odata/v4/catalog/RecentMovies
+Accept: application/json
+
+### Movie by ID
+GET http://localhost:4004/odata/v4/catalog/Movies(ID='M001')
+Accept: application/json
+
+### Create Movie - sctruct from endpoint
+POST http://localhost:4004/odata/v4/catalog/Movies
+Content-Type: application/json
+
+{
+  "ID": "M005",
+  "title": "TESTCREATION",
+  "releaseDate": "2025-12-18",
+  "rating": 6.9,
+  "genre": "Sci-Fi",
+  "tags": ["epic", "3D", "blockbuster"],
+  "audioLanguages": ["en", "fr"],
+  "studio_ID": "S001"
+}
+
+### getMovieSessions
+GET http://localhost:4004/odata/v4/catalog/getMovieSessions(movieID='M001')
+Accept: application/json
+
+### getStudioMovies
+GET http://localhost:4004/odata/v4/catalog/getStudioMovies(studioID='S001')
+Accept: application/json
+
+### Action: rateMovie
+POST http://localhost:4004/odata/v4/catalog/rateMovie
+Content-Type: application/json
+
+{
+  "movieID": "M001",
+  "newRating": 9.3
+}
+
+### Action: renameStudio
+POST http://localhost:4004/odata/v4/catalog/renameStudio
+Content-Type: application/json
+
+{
+  "studioID": "S001",
+  "newName": "Pixar Studios"
+}
+
+### View Ж MoviesByStudio
+GET http://localhost:4004/odata/v4/catalog/MoviesByStudio(studioName='Pixar Studios')/Set
+Accept: application/json

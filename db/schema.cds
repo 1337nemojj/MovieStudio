@@ -16,7 +16,7 @@ type TagList : many String; // arr type 1
 entity Studios : cuid, managed {
   name     : String(100);
   founded  : Timestamp;
-  country  : Country;
+  country  : Country; // на будущее
   movies   : Composition of many Movies on movies.studio = $self;
 }
 
