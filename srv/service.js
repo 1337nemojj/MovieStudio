@@ -1,0 +1,55 @@
+const cds = require('@sap/cds');
+
+module.exports = cds.service.impl(async function () {
+  const { Movies, Sessions, Studios } = this.entities;
+
+  /**
+   * Устанавливаем значение рейтинга по умолчанию перед созданием фильма
+   */
+  this.before('CREATE', 'Movies', (req) => {
+    if (!req.data.rating) {
+      req.data.rating = 0.0;
+    }
+  });
+
+  /**
+   * сеансы для указанного фильма
+   */
+  this.on('getMovieSessions', async (req) => {
+    const { movieID } = req.data;
+    return await SELECT.from(Sessions).where({ movie_ID: movieID });
+  });
+
+  /**
+   *  обновить рейтинг фильма и вернуть новое значение
+   */
+  this.on('rateMovie', async (req) => {
+    const { movieID, newRating } = req.data;
+    await UPDATE(Movies).set({ rating: newRating }).where({ ID: movieID });
+    return newRating;
+  });
+
+  /**
+   * количество связанных фильмов со студией
+   */
+  this.after('READ', 'Studios', async (each) => {
+    const result = await SELECT.one
+      .from(Movies)
+      .columns('count(*) as count')
+      .where({ studio_ID: each.ID });
+    each.movieCount = result.count;
+  });
+    /**
+   * фильмы студии
+   */
+  this.on('getStudioMovies', async (req) => {
+    const { studioID } = req.data;
+    return await SELECT.from(Movies).where({ studio_ID: studioID });
+  });
+  //test
+  this.on('renameStudio', async (req) => {
+    const { studioID, newName } = req.data;
+    await UPDATE(Studios).set({ name: newName }).where({ ID: studioID });
+    return true;
+  });
+});

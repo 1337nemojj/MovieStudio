@@ -1,0 +1,22 @@
+{
+    "build": {
+      "target": "gen",
+      "tasks": [
+        {
+          "for": "hana",
+          "src": "db",
+          "options": {
+            "model": ["db"]
+          }
+        }
+      ]
+    },
+    "cds": {
+      "requires": {
+        "db": {
+          "kind": "hana"
+        }
+      }
+    }
+  }
+  
