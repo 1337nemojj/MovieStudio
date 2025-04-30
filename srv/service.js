@@ -11,6 +11,14 @@ module.exports = cds.service.impl(async function () {
       req.data.rating = 0.0;
     }
   });
+  
+  // email must be valid -> /Actors с email: "test.com" -> 400
+  this.before('CREATE', 'Actors', req => {
+    const email = req.data.email;
+    if (email && !email.includes('@')) {
+      req.error(400, 'Invalid email format. Must contain "@"');
+    }
+  });
 
   /**
    * сеансы для указанного фильма

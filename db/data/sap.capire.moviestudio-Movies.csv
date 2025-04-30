@@ -1,4 +1,4 @@
-ID;title;releaseDate;rating;genre;studio_ID
-M001;Shrek;2001-05-18;7.9;Comedy;S001
-M002;Inception;2010-07-16;8.8;Sci-Fi;S002
-M003;Spirited Away;2001-07-20;8.6;Fantasy;S003
+ID;title;releaseDate;rating;genre;studio_ID;tags;audioLanguages;
+M001;Shrek;2001-05-18;7.9;Comedy;S001;"[""animated"",""family"",""fun""]";"[""en"",""es""]";
+M002;Inception;2010-07-16;8.8;Sci-Fi;S002;"[""dream"",""thriller"",""mind-bending""]";"[""de"",""en""]";
+M003;Spirited Away;2001-07-20;8.6;Fantasy;S003;"[""anime"",""spiritual"",""classic""]";"[""ja"",""en""]";

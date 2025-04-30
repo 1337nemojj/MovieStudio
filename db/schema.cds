@@ -5,7 +5,13 @@ using {
   sap.common.CodeList
 } from '@sap/cds/common';
 
+
 namespace sap.capire.moviestudio;
+
+type EmailAddress : String(100);
+
+type TagList : many String; // arr type 1
+
 
 entity Studios : cuid, managed {
   name     : String(100);
@@ -19,6 +25,8 @@ entity Movies : cuid, managed {
   releaseDate  : Date;
   rating       : Decimal(3,1);
   genre        : String;
+  tags         : TagList; // arr type 1
+  audioLanguages : array of String; // arr type 2
   studio       : Association to Studios;
   sessions     : Composition of many Sessions on sessions.movie = $self;
   actors       : Association to many MovieActors on actors.movie = $self;
@@ -29,7 +37,7 @@ entity Actors : cuid, managed {
   firstName : String(50);
   lastName  : String(50);
   birthDate : Date;
-  email     : String(100);
+  email     : EmailAddress;
   roles     : Association to many MovieActors on roles.actor = $self;
 }
 
