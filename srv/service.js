@@ -62,10 +62,17 @@ module.exports = cds.service.impl(async function () {
   });
 
   ////////////
-  
+
   this.after('READ', 'Sessions', each => {
     if (each.availableSeats < 10) each.criticality = 1
     else if (each.availableSeats < 50) each.criticality = 2
     else each.criticality = 3
   })
+//ratingCriticality
+  this.after('READ', 'Movies', each => {
+    if (each.rating >= 8.0) each.ratingCriticality = 3;
+    else if (each.rating >= 5.0) each.ratingCriticality = 2;
+    else each.ratingCriticality = 1;
+  });
+
 });

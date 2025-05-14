@@ -5,18 +5,30 @@ service CatalogService {
   @cds.redirection.target
   @title: 'Movies'
   @description: 'List of all movies in the catalog'
-  entity Movies           as projection on my.Movies;
+  entity Movies           as projection on my.Movies
+  {
+    ID,
+    title,
+    releaseDate,
+    rating,
+    ratingCriticality,
+    genre,
+    tags,
+    audioLanguages,
+    studio,
+    sessions,
+    actors,
+    categories
+  };
   
 
   @title: 'Studios'
   @description: 'Film production studios'
   entity Studios          as projection on my.Studios;
-  annotate Studios with @odata.draft.enabled;
   
   @title: 'Actors'
   @description: 'People acting in movies'
   entity Actors           as projection on my.Actors;
-  annotate Actors with @odata.draft.enabled;
   
   @title: 'Sessions'
   @description: 'Movie showtimes and seat availability'
@@ -26,27 +38,22 @@ service CatalogService {
   @title: 'Categories'
   @description: 'Genres or classifications for movies'
   entity Categories       as projection on my.Categories;
-  annotate Categories with @odata.draft.enabled;
   
   @title: 'Movie-Actor Relations'
   @description: 'Links between movies and actors'
   entity MovieActors      as projection on my.MovieActors;
-  annotate MovieActors with @odata.draft.enabled;
   
   @title: 'Movie-Category Relations'
   @description: 'Links between movies and categories'
   entity MovieCategories  as projection on my.MovieCategories;
-  annotate MovieCategories with @odata.draft.enabled;
   
   @title: 'Movie Overview'
   @description: 'Simplified list of movies for display'
   entity MoviesOverview   as projection on my.MoviesOverview;
-  annotate MoviesOverview with @odata.draft.enabled;
   
   @title: 'Recently Released Movies'
   @description: 'Sorted list of the latest movies'
   entity RecentMovies     as projection on my.RecentMovies;
-  annotate RecentMovies with @odata.draft.enabled;
   
   @title: 'Movies by Studio'
   view MoviesByStudio (studioName: String)

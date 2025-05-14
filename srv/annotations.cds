@@ -1,241 +1,140 @@
 using { sap.capire.moviestudio as db } from '../db/schema';
 
 annotate db.Movies with @(
-  UI: {
-    SelectionFields: ['title', 'releaseDate', 'genre', 'rating'],
-    LineItem: [
-      { Value: title, Label: 'Title' },
-      { Value: releaseDate, Label: 'Release Date' },
-      { Value: genre, Label: 'Genre' },
-      { Value: rating, Label: 'Rating' },
-      { Value: studio.name, Label: 'Studio' }
-    ],
-    Identification: [
-      { Value: title },
-      { Value: genre },
-      { Value: releaseDate }
-    ],
-    HeaderInfo: {
-      TypeName: 'Movie',
-      TypeNamePlural: 'Movies',
-      Title: { Value: title },
-      Description: { Value: genre }
-    },
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
-  }
-);
-
-annotate db.Studios with @(
-  UI: {
-    SelectionFields: ['name', 'founded'],
-    LineItem: [
-      { Value: name, Label: 'Studio Name' },
-      { Value: founded, Label: 'Founded' }
-    ],
-    Identification: [
-      { Value: name },
-      { Value: founded }
-    ],
-    HeaderInfo: {
-      TypeName: 'Studio',
-      TypeNamePlural: 'Studios',
-      Title: { Value: name }
-    }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
-  }
-);
-
-
-
-annotate db.Actors with @(
-  UI: {
-    SelectionFields: ['firstName', 'lastName', 'birthDate'],
-    LineItem: [
-      { Value: firstName, Label: 'First Name' },
-      { Value: lastName, Label: 'Last Name' },
-      { Value: birthDate, Label: 'Birth Date' }
-    ],
-    Identification: [
-      { Value: firstName },
-      { Value: lastName },
-      { Value: birthDate }
-    ],
-    HeaderInfo: {
-      TypeName: 'Actor',
-      TypeNamePlural: 'Actors',
-      Title: { Value: lastName },
-      Description: { Value: firstName }
-    }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
-  }
-);
-
-annotate db.Categories with @(
-  UI: {
-    SelectionFields: ['name'],
-    LineItem: [
-      { Value: name, Label: 'Category Name' }
-    ],
-    Identification: [
-      { Value: name }
-    ],
-    HeaderInfo: {
-      TypeName: 'Category',
-      TypeNamePlural: 'Categories',
-      Title: { Value: name }
-    }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
+  UI.LineItem: [
+    { Value: ID, Label: 'Movie ID' },
+    { Value: title, Label: 'Title' },
+    { Value: releaseDate, Label: 'Release Date' },
+    { Value: genre, Label: 'Genre' },
+    { Value: rating, Label: 'Rating', Criticality: ratingCriticality },
+    { Value: studio.name, Label: 'Studio' }
+  ],
+  UI.SelectionFields: ['title', 'genre', 'releaseDate'],
+  UI.Identification: [
+    { Value: title },
+    { Value: releaseDate },
+    { Value: genre },
+    { Value: rating }
+  ],
+  UI.HeaderInfo: {
+    TypeName: 'Movie',
+    TypeNamePlural: 'Movies',
+    Title: { Value: title },
+    Description: { Value: genre }
   }
 );
 
 annotate db.Sessions with @(
-  UI: {
-    SelectionFields: ['startTime', 'availableSeats'],
-    LineItem: [
-      { Value: startTime, Label: 'Start Time' },
-      { Value: availableSeats, Label: 'Available Seats' },
-      { Value: criticality, Label: 'Criticality' }
-    ],
-    Identification: [
-      { Value: startTime },
-      { Value: availableSeats }
-    ],
-    HeaderInfo: {
-      TypeName: 'Session',
-      TypeNamePlural: 'Sessions',
-      Title: { Value: startTime },
-      Description: { Value: availableSeats }
+  UI.LineItem #SessionList : [
+    { Value: startTime, Label: 'Start Time' },
+    { Value: availableSeats, Label: 'Seats', Criticality: criticality }
+  ]
+);
+
+annotate db.MovieActors with @UI.LineItem #ActorList: [
+  { Value: actor.firstName, Label: 'First Name' },
+  { Value: actor.lastName, Label: 'Last Name' },
+  { Value: role, Label: 'Role' }
+];
+
+annotate db.Movies with @(
+  UI.Facets : [
+    {
+      Label: 'Movie Details',
+      $Type: 'UI.ReferenceFacet',
+      Target: '@UI.Identification'
+    },
+    {
+      Label: 'Studio Info',
+      $Type: 'UI.ReferenceFacet',
+      Target: '@UI.FieldGroup#MainInfo'
+    },
+    {
+      Label: 'Sessions',
+      $Type: 'UI.CollectionFacet',
+      Facets: [
+        {
+          $Type: 'UI.ReferenceFacet',
+          Label: 'Session List',
+          Target: 'sessions/@UI.LineItem#SessionList'
+        }
+      ]
+    },
+    {
+      $Type: 'UI.ReferenceFacet',
+      Label: 'Actors',
+      Target: 'actors/@UI.LineItem#ActorList'
     }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
+  ]
+);
+
+annotate db.Movies with @UI.FieldGroup #MainInfo: {
+  Label: 'Studio Details',
+  Data: [
+    { Value: studio.name, Label: 'Studio' },
+    { Value: studio.founded, Label: 'Founded' }
+  ]
+};
+
+annotate db.Studios with @(
+  UI.LineItem: [
+    { Value: ID, Label: 'Studio ID' },
+    { Value: name, Label: 'Studio Name' },
+    { Value: founded, Label: 'Founded' },
+    { Value: country_code, Label: 'Country' }
+  ],
+  UI.Identification: [
+    { Value: name },
+    { Value: founded },
+    { Value: country_code }
+  ],
+  UI.SelectionFields: ['name', 'founded'],
+  UI.HeaderInfo: {
+    TypeName: 'Studio',
+    TypeNamePlural: 'Studios',
+    Title: { Value: name },
+    Description: { Value: country_code }
   }
 );
 
-annotate db.MovieActors with @(
-  UI: {
-    LineItem: [
-      { Value: movie.title, Label: 'Movie' },
-      { Value: actor.lastName, Label: 'Actor' }
-    ],
-    HeaderInfo: {
-      TypeName: 'Movie-Actor Link',
-      TypeNamePlural: 'Movie-Actor Links',
-      Title: { Value: movie.title },
-      Description: { Value: actor.lastName }
-    }
+annotate db.Actors with @(
+  UI.LineItem: [
+    { Value: ID, Label: 'Actor ID' },
+    { Value: firstName, Label: 'First Name' },
+    { Value: lastName, Label: 'Last Name' },
+    { Value: birthDate, Label: 'Birth Date' },
+    { Value: email, Label: 'Email' }
+  ],
+  UI.Identification: [
+    { Value: firstName },
+    { Value: lastName },
+    { Value: birthDate },
+    { Value: email }
+  ],
+  UI.SelectionFields: ['firstName', 'lastName'],
+  UI.HeaderInfo: {
+    TypeName: 'Actor',
+    TypeNamePlural: 'Actors',
+    Title: { Value: lastName },
+    Description: { Value: email }
   }
 );
 
-annotate db.RecentMovies with @(
-  UI: {
-    LineItem: [
-      { Value: title, Label: 'Title' },
-      { Value: releaseDate, Label: 'Release Date' },
-      { Value: rating, Label: 'Rating' }
-    ],
-    HeaderInfo: {
-      TypeName: 'Recent Movie',
-      TypeNamePlural: 'Recent Movies',
-      Title: { Value: title }
-    }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
+annotate db.Categories with @(
+  UI.LineItem: [
+    { Value: code, Label: 'Code' },
+    { Value: text, Label: 'Category Name' },
+    { Value: description, Label: 'Description' }
+  ],
+  UI.Identification: [
+    { Value: text },
+    { Value: description }
+  ],
+  UI.SelectionFields: ['text'],
+  UI.HeaderInfo: {
+    TypeName: 'Category',
+    TypeNamePlural: 'Categories',
+    Title: { Value: text },
+    Description: { Value: description }
   }
 );
-
-annotate db.MoviesOverview with @(
-  UI: {
-    LineItem: [
-      { Value: title, Label: 'Title' },
-      { Value: rating, Label: 'Rating' }
-    ],
-    HeaderInfo: {
-      TypeName: 'Movie Overview',
-      TypeNamePlural: 'Movies Overview',
-      Title: { Value: title }
-    }
-  },
-  Capabilities: {
-    SearchRestrictions: {
-      Searchable: true
-    }
-  }
-);
-
-annotate sap.capire.moviestudio.Studios with @Capabilities: {
-  InsertRestrictions: { Insertable: true },
-  UpdateRestrictions: { Updatable: true },
-  DeleteRestrictions: { Deletable: true }
-};
-
-annotate sap.capire.moviestudio.Actors with @Capabilities: {
-  InsertRestrictions: { Insertable: true },
-  UpdateRestrictions: { Updatable: true },
-  DeleteRestrictions: { Deletable: true }
-};
-
-annotate sap.capire.moviestudio.Categories with @Capabilities: {
-  InsertRestrictions: { Insertable: true },
-  UpdateRestrictions: { Updatable: true },
-  DeleteRestrictions: { Deletable: true }
-};
-
-annotate sap.capire.moviestudio.MovieActors with @Capabilities: {
-  InsertRestrictions: { Insertable: true },
-  UpdateRestrictions: { Updatable: true },
-  DeleteRestrictions: { Deletable: true }
-};
-
-annotate sap.capire.moviestudio.MovieCategories with @Capabilities: {
-  InsertRestrictions: { Insertable: true },
-  UpdateRestrictions: { Updatable: true },
-  DeleteRestrictions: { Deletable: true }
-};
-
-annotate sap.capire.moviestudio.RecentMovies with @Capabilities: {
-  InsertRestrictions: { Insertable: false },
-  UpdateRestrictions: { Updatable: false },
-  DeleteRestrictions: { Deletable: false }
-};
-
-annotate sap.capire.moviestudio.MoviesOverview with @Capabilities: {
-  InsertRestrictions: { Insertable: false },
-  UpdateRestrictions: { Updatable: false },
-  DeleteRestrictions: { Deletable: false }
-};
-
-
-
-annotate sap.capire.moviestudio.Movies with @Capabilities: {
-  InsertRestrictions: { Insertable: false },
-  UpdateRestrictions: { Updatable: false },
-  DeleteRestrictions: { Deletable: false }
-};
-
-annotate sap.capire.moviestudio.Sessions with @Capabilities: {
-  InsertRestrictions: { Insertable: false },
-  UpdateRestrictions: { Updatable: false },
-  DeleteRestrictions: { Deletable: false }
-};

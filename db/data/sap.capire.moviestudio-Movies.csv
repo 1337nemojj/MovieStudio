@@ -1,4 +1,4 @@
-ID;title;releaseDate;rating;genre;studio_ID;tags;audioLanguages;
-M001;Shrek;2001-05-18;7.9;Comedy;S001;"[""animated"",""family"",""fun""]";"[""en"",""es""]";
-M002;Inception;2010-07-16;8.8;Sci-Fi;S002;"[""dream"",""thriller"",""mind-bending""]";"[""de"",""en""]";
-M003;Spirited Away;2001-07-20;8.6;Fantasy;S003;"[""anime"",""spiritual"",""classic""]";"[""ja"",""en""]";
+ID;title;releaseDate;rating;ratingCriticality;genre;tags;audioLanguages;studio_ID
+a1cd293a-9708-4bc7-b355-203d2fdd3d0a;Example sense;2019-08-17;8.6;2;Action;"[""tag1"", ""tag2""]";"[""en"", ""fr""]";543bfe3d-739c-429a-85bf-ff865c6e64e6
+ef10133d-9510-4400-8881-1e6bd6a90b10;Work special total;2020-08-22;9.3;2;Sci-Fi;"[""tag1"", ""tag2""]";"[""en"", ""fr""]";543bfe3d-739c-429a-85bf-ff865c6e64e6
+24f1039a-89fb-466d-b681-afb00e2b9dfa;Role together;2020-12-24;9.3;2;Fantasy;"[""tag1"", ""tag2""]";"[""en"", ""fr""]";15ced0c0-85a8-46bf-991a-702f53899b49

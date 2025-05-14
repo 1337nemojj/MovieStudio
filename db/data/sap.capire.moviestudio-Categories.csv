@@ -1,4 +1,4 @@
 code;text;description
-C001;Animation;Animated feature films
-C002;Action;Fast-paced action movies
-C003;Fantasy;Fantasy genre films
+CAT01;Adventure;Adventure movies
+CAT02;Romance;Romance movies
+CAT03;Thriller;Thriller movies

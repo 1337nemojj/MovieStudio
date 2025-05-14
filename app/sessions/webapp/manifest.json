@@ -92,61 +92,6 @@
           "pattern": "Movies({key}):?query:",
           "name": "MoviesObjectPage",
           "target": "MoviesObjectPage"
-        },
-        {
-          "pattern": "Studios",
-          "name": "StudiosList",
-          "target": "StudiosList"
-        },
-        {
-          "pattern": "Studios({key}):?query:",
-          "name": "StudiosObjectPage",
-          "target": "StudiosObjectPage"
-        },
-        {
-          "pattern": "Actors",
-          "name": "ActorsList",
-          "target": "ActorsList"
-        },
-        {
-          "pattern": "Actors({key}):?query:",
-          "name": "ActorsObjectPage",
-          "target": "ActorsObjectPage"
-        },
-        {
-          "pattern": "Categories",
-          "name": "CategoriesList",
-          "target": "CategoriesList"
-        },
-        {
-          "pattern": "Categories({key}):?query:",
-          "name": "CategoriesObjectPage",
-          "target": "CategoriesObjectPage"
-        },
-        {
-          "pattern": "Sessions",
-          "name": "SessionsList",
-          "target": "SessionsList"
-        },
-        {
-          "pattern": "Sessions({key}):?query:",
-          "name": "SessionsObjectPage",
-          "target": "SessionsObjectPage"
-        },
-        {
-          "pattern": "RecentMovies",
-          "name": "RecentMoviesList",
-          "target": "RecentMoviesList"
-        },
-        {
-          "pattern": "MoviesOverview",
-          "name": "MoviesOverviewList",
-          "target": "MoviesOverviewList"
-        },
-        {
-          "pattern": "MovieActors",
-          "name": "MovieActorsList",
-          "target": "MovieActorsList"
         }
       ],
       "targets": {
@@ -161,11 +106,19 @@
               "filterSettings": {
                 "autoBind": true
               },
+              "initialLoad": true,
               "variantManagement": "Page",
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  }
+                }
+              },
+              "navigation": {
+                "Movies": {
+                  "detail": {
+                    "route": "MoviesObjectPage"
                   }
                 }
               }
@@ -179,7 +132,6 @@
           "options": {
             "settings": {
               "contextPath": "/Movies",
-              "enableDraftEditMode": true,
               "editableHeaderContent": true
             }
           }
@@ -191,200 +143,6 @@
           "options": {
             "settings": {
               "contextPath": "/Studios",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "editable": true,
-              "creationMode": "Inline",
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "editable": true,
-                    "creationMode": "Inline"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "StudiosObjectPage": {
-          "type": "Component",
-          "id": "StudiosObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "contextPath": "/Studios",
-              "enableDraftEditMode": true,
-              "editableHeaderContent": true
-            }
-          }
-        },
-        "ActorsList": {
-          "type": "Component",
-          "id": "ActorsList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/Actors",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "editable": true,
-              "creationMode": "Inline",
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "editable": true,
-                    "creationMode": "Inline"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "ActorsObjectPage": {
-          "type": "Component",
-          "id": "ActorsObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "contextPath": "/Actors",
-              "enableDraftEditMode": true,
-              "editableHeaderContent": true
-            }
-          }
-        },
-        "CategoriesList": {
-          "type": "Component",
-          "id": "CategoriesList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/Categories",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "editable": true,
-              "creationMode": "Inline",
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "editable": true,
-                    "creationMode": "Inline"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "CategoriesObjectPage": {
-          "type": "Component",
-          "id": "CategoriesObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "contextPath": "/Categories",
-              "enableDraftEditMode": true,
-              "editableHeaderContent": true
-            }
-          }
-        },
-        "SessionsList": {
-          "type": "Component",
-          "id": "SessionsList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/Sessions",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "SessionsObjectPage": {
-          "type": "Component",
-          "id": "SessionsObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "contextPath": "/Sessions",
-              "enableDraftEditMode": true,
-              "editableHeaderContent": true
-            }
-          }
-        },
-        "RecentMoviesList": {
-          "type": "Component",
-          "id": "RecentMoviesList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/RecentMovies",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "editable": true,
-              "creationMode": "Inline",
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "editable": true,
-                    "creationMode": "Inline"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "MoviesOverviewList": {
-          "type": "Component",
-          "id": "MoviesOverviewList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/MoviesOverview",
-              "filterSettings": {
-                "autoBind": true
-              },
-              "editable": true,
-              "creationMode": "Inline",
-              "variantManagement": "Page",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "editable": true,
-                    "creationMode": "Inline"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "MovieActorsList": {
-          "type": "Component",
-          "id": "MovieActorsList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/MovieActors",
               "filterSettings": {
                 "autoBind": true
               },

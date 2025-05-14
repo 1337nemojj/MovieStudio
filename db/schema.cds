@@ -13,7 +13,6 @@ type EmailAddress : String(100);
 type TagList : many String; // arr type 1
 
 
-@odata.draft.enabled
 entity Studios : cuid, managed {
   name     : String(100);
   founded  : Timestamp;
@@ -26,6 +25,7 @@ entity Movies : cuid, managed {
   releaseDate  : Date;
   rating       : Decimal(3,1);
   genre        : String;
+  ratingCriticality : Integer;
   tags         : TagList; // arr type 1
   audioLanguages : array of String; // arr type 2
   studio       : Association to Studios;
@@ -34,7 +34,6 @@ entity Movies : cuid, managed {
   categories   : Association to many MovieCategories on categories.movie = $self;
 }
 
-@odata.draft.enabled
 entity Actors : cuid, managed {
   firstName : String(50);
   lastName  : String(50);
