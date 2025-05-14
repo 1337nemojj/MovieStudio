@@ -82,3 +82,4 @@ view RecentMovies as select from Movies {
   rating,
   genre
 } order by releaseDate desc;
+

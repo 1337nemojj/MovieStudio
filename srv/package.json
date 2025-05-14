@@ -1,0 +1,14 @@
+{
+    "name": "movie-studio-srv",
+    "version": "1.0.0",
+    "description": "CAP backend service",
+    "scripts": {
+      "start": "cds run"
+    },
+    "dependencies": {
+      "@sap/cds": "^7"
+    },
+    "engines": {
+      "node": "^18"
+    }
+  }

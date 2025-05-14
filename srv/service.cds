@@ -18,7 +18,8 @@ service CatalogService {
     studio,
     sessions,
     actors,
-    categories
+    categories,
+
   };
   
 

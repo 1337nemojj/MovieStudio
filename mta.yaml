@@ -1,0 +1,90 @@
+ID: movie-studio
+version: 1.0.0
+_schema-version: "3.2"
+
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  - name: movie-studio-srv
+    type: nodejs
+    path: srv
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv_api
+        properties:
+          url: ${default-url}
+    requires:
+      - name: movie-studio-db
+      - name: movie-studio-auth
+
+  - name: approuter
+    type: nodejs
+    path: approuter
+    build-parameters:
+      builder: npm-ci
+    requires:
+      - name: movie-studio-auth
+      - name: movie-studio-html5-repo-runtime
+      - name: srv_api
+
+  - name: html5-deployer
+    type: com.sap.html5.application-content
+    path: app
+    requires:
+      - name: movie-studio-html5-repo-host
+    build-parameters:
+      requires:
+        - name: movie-studio-ui
+          artifacts:
+            - dist
+          target-path: resources/
+
+  - name: movie-studio-ui
+    type: html5
+    path: app/sessions
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+
+resources:
+  - name: movie-studio-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  - name: movie-studio-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      config:
+        xsappname: movie-studio-app
+        tenant-mode: dedicated
+        scopes:
+          - name: $XSAPPNAME.Display
+            description: View scope
+        authorities:
+          - $XSAPPNAME.Display
+        role-templates:
+          - name: Viewer
+            description: Role for viewing
+            scope-references:
+              - $XSAPPNAME.Display
+
+  - name: movie-studio-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: movie-studio-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime

@@ -1,0 +1,21 @@
+{
+    "xsappname": "movie-studio-app",
+    "tenant-mode": "dedicated",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.Callback",
+        "description": "Callback scope",
+        "grant-as-authority-to-apps": ["$XSAPPNAME(application,sap-provisioning,workflow)"]
+      }
+    ],
+    "authorities": [],
+    "role-templates": [
+      {
+        "name": "Viewer",
+        "description": "Viewer Role",
+        "scope-references": [
+          "$XSAPPNAME.Callback"
+        ]
+      }
+    ]
+  }

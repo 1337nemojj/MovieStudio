@@ -1,0 +1,12 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "approuter",
+    "type": "application",
+    "title": "Standalone Approuter",
+    "description": "Routing entry for HTML5 apps",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  }
+}

@@ -74,5 +74,7 @@ module.exports = cds.service.impl(async function () {
     else if (each.rating >= 5.0) each.ratingCriticality = 2;
     else each.ratingCriticality = 1;
   });
+  
 
 });
+
