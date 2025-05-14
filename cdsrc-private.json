@@ -1,0 +1,17 @@
+{
+  "requires": {
+    
+      "db": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "2a1e0ebbtrial_2a1e0ebbtrial",
+          "space": "dev",
+          "instance": "movie-studio-db",
+          "key": "movie-studio-db-key"
+        },
+        "kind": "hana"
+      }
+    
+  }
+}

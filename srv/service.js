@@ -60,4 +60,12 @@ module.exports = cds.service.impl(async function () {
     await UPDATE(Studios).set({ name: newName }).where({ ID: studioID });
     return true;
   });
+
+  ////////////
+  
+  this.after('READ', 'Sessions', each => {
+    if (each.availableSeats < 10) each.criticality = 1
+    else if (each.availableSeats < 50) each.criticality = 2
+    else each.criticality = 3
+  })
 });
